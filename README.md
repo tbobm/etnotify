@@ -9,10 +9,10 @@ Gets informations about the latest validations.
 > This project won't work inside a virtualenv because of the dbus dependency.
 
 ```bash
-$ git clone https://github.com/tbobm/etnotif
-$ cd etnotif
+$ git clone https://github.com/tbobm/etnotify
+$ cd etnotify
 $ pip install -r requirements.txt
-$ python etnotif.py
+$ python etnotify.py
 ```
 
 ## Configuration

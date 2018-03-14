@@ -10,9 +10,9 @@ Gets informations about the latest validations.
 
 ```bash
 $ git clone https://github.com/tbobm/etnotif
-$ cd etnotif
+$ cd etnotify
 $ pip install -r requirements.txt
-$ python etnotif.py
+$ python etnotify.py
 ```
 
 ## Configuration

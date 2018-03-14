@@ -1,3 +1,6 @@
 *.swp
 *.pyc
 __pycache__
+.coverage
+.pytest_cache/
+.venv/

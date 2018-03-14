@@ -1,4 +1,4 @@
-"""Etnotify script"""
+"""Etnotif script"""
 import os
 import time
 import logging

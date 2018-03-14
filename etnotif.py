@@ -1,5 +1,6 @@
 """Etnotif script"""
 import os
+import time
 
 from etnawrapper import EtnaWrapper
 
@@ -20,6 +21,15 @@ def main():
     client = get_client()
     notif = get_latest_notification(client)
     print(notif)
+    while True:
+        new_notif = get_latest_notification(client)
+        if notif != new_notif:
+            print(new_notif)
+            notif = new_notif
+        else:
+            print("Same notif")
+            time.sleep(5)
+
 
 
 if __name__ == "__main__":

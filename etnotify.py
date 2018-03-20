@@ -31,12 +31,15 @@ def get_notification():
 
 logger = get_logger()
 
+
 def get_client():
     login = os.environ.get('ETNA_USER')
     password = os.environ.get('ETNA_PASS')
     etna = EtnaWrapper(login=login, password=password)
     infos = etna.get_infos()
-    logger.info('logged as {} at {}'.format(infos['login'], infos['login_date']))
+    logger.info(
+        'logged as {} at {}'.format(infos['login'], infos['login_date'])
+    )
     return etna
 
 
@@ -58,7 +61,10 @@ def monitor_notifications(client, notifier):
     for notification in new_notifications(notif, client):
         logger.info(notification)
         try:
-            notifier.update('ETNA - New notification', message=notification['message'])
+            notifier.update(
+                'ETNA - New notification',
+                message=notification['message']
+            )
         except Exception as err:
             notifier.update('ETNOTIFY - Error', message=str(err))
         notifier.show()
@@ -70,17 +76,20 @@ def new_notifications(old_notif, client):
         if current_notif is False:
             logger.error('Could not get a notification. Calling for help.')
             yield {'message': 'ERROR while getting notification.'}
-        if old_notif != current_notif:
+        elif old_notif != current_notif:
             old_notif = current_notif
             yield current_notif
         else:
-            logger.debug('[OLD] %s : %s', current_notif['start'], current_notif['message'])
+            logger.debug(
+                '[OLD] %s : %s',
+                current_notif['start'],
+                current_notif['message']
+            )
             time.sleep(5)
 
 
 def main():
     client = get_client()
-    notifier = get_notification()
     notify = get_notification()
     monitor_notifications(client, notify)
 

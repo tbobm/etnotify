@@ -4,6 +4,7 @@ import time
 import logging
 
 from etnawrapper import EtnaWrapper
+from etnawrapper import BadStatusException
 import notify2
 
 
@@ -40,7 +41,14 @@ def get_client():
 
 
 def get_latest_notification(etna):
-    notifications = etna.get_notifications()
+    try:
+        notifications = etna.get_notifications()
+    except BadStatusException as err:
+        logger.exception('Something bad happened.')
+        return str(err)
+    except Exception as err:
+        logger.exception('err, something unplanned happened. bad bad bad.')
+        return str(err)
     return notifications[0]
 
 
@@ -49,13 +57,19 @@ def monitor_notifications(client, notifier):
     logger.info('{} : {}'.format(notif['start'], notif['message']))
     for notification in new_notifications(notif, client):
         logger.info(notification)
-        notifier.update('ETNA - New notification', message=notification['message'])
+        try:
+            notifier.update('ETNA - New notification', message=notification['message'])
+        except Exception as err:
+            notifier.update('ETNOTIFY - Error', message=str(err))
         notifier.show()
 
 
 def new_notifications(old_notif, client):
     while True:
         current_notif = get_latest_notification(client)
+        if current_notif is False:
+            logger.error('Could not get a notification. Calling for help.')
+            yield {'message': 'ERROR while getting notification.'}
         if old_notif != current_notif:
             old_notif = current_notif
             yield current_notif

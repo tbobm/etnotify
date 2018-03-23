@@ -8,17 +8,19 @@ from etnawrapper import BadStatusException
 
 try:
     import notify2
-    platform = "linux"
+
+    platform = "LINUX"
 except ImportError:
     from win10toast import ToastNotifier
-    platform = "windows"
+
+    platform = "WINDOWS"
 
 
 def get_logger():
     logger = logging.getLogger(__name__)
     handler = logging.StreamHandler()
     formatter = logging.Formatter(
-            '%(asctime)s [%(levelname)s] %(message)s')
+        '%(asctime)s [%(levelname)s] %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     if os.environ.get('DEBUG'):
@@ -27,8 +29,9 @@ def get_logger():
         logger.setLevel(logging.INFO)
     return logger
 
+
 def send_notification(notifier, title, message):
-    if platform == "linux":
+    if platform == "LINUX":
         notifier.update(
             title,
             message
@@ -36,19 +39,18 @@ def send_notification(notifier, title, message):
         notifier.show()
     else:
         notifier.show_toast(title,
-                    message,
-                    icon_path="etna.ico",
-                    duration=10)
+                            message,
+                            icon_path="etna.ico",
+                            duration=10)
 
 
 def get_notification():
-    if platform == "linux":
+    if platform == "LINUX":
         notify2.init('etnotif')
     else:
         notifier = ToastNotifier()
     send_notification(notifier, "ETNA", 'initialized etnotify')
     return notifier
-
 
 
 logger = get_logger()

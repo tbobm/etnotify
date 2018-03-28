@@ -5,14 +5,22 @@ import logging
 
 from etnawrapper import EtnaWrapper
 from etnawrapper import BadStatusException
-import notify2
+
+try:
+    import notify2
+
+    PLATFORM = "LINUX"
+except ImportError:
+    from win10toast import ToastNotifier
+
+    PLATFORM = "WINDOWS"
 
 
 def get_logger():
     logger = logging.getLogger(__name__)
     handler = logging.StreamHandler()
     formatter = logging.Formatter(
-            '%(asctime)s [%(levelname)s] %(message)s')
+        '%(asctime)s [%(levelname)s] %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     if os.environ.get('DEBUG'):
@@ -22,10 +30,28 @@ def get_logger():
     return logger
 
 
+def send_notification(notifier, title, message):
+    if PLATFORM == "LINUX":
+        notifier.update(
+            title,
+            message
+        )
+        notifier.show()
+    else:
+        notifier.show_toast(
+            title,
+            message,
+            icon_path="etna.ico",
+            duration=10
+        )
+
+
 def get_notification():
-    notify2.init('etnotif')
-    notifier = notify2.Notification('ETNA', message='initialized etnotify')
-    notifier.show()
+    if PLATFORM == "LINUX":
+        notify2.init('etnotif')
+    else:
+        notifier = ToastNotifier()
+    send_notification(notifier, "ETNA", 'initialized etnotify')
     return notifier
 
 
@@ -61,13 +87,9 @@ def monitor_notifications(client, notifier):
     for notification in new_notifications(notif, client):
         logger.info(notification)
         try:
-            notifier.update(
-                'ETNA - New notification',
-                message=notification['message']
-            )
+            send_notification(notifier, 'ETNA - New notification', notification['message'])
         except Exception as err:
-            notifier.update('ETNOTIFY - Error', message=str(err))
-        notifier.show()
+            send_notification(notifier, 'ETNOTIFY - Error', str(err))
 
 
 def new_notifications(old_notif, client):

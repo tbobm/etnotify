@@ -12,7 +12,7 @@ DESCRIPTION = 'Notifier script for ETNA.'
 URL = 'https://github.com/tbobm/etnotify'
 EMAIL = 'massar_t@etna-alternance.net'
 AUTHOR = 'Theo "Bob" Massard'
-VERSION = None
+VERSION = 1.1
 
 REQUIRED = [
     'etnawrapper',
@@ -26,11 +26,7 @@ with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
 
 # Load the package's __version__.py module as a dictionary.
 about = {}
-if not VERSION:
-    with open(os.path.join(here, NAME, '__version__.py')) as f:
-        exec(f.read(), about)
-else:
-    about['__version__'] = VERSION
+about['__version__'] = VERSION
 
 
 setup(

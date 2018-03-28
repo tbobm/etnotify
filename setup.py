@@ -12,7 +12,7 @@ DESCRIPTION = 'Notifier script for ETNA.'
 URL = 'https://github.com/tbobm/etnotify'
 EMAIL = 'massar_t@etna-alternance.net'
 AUTHOR = 'Theo "Bob" Massard'
-VERSION = 1.1
+VERSION = 1.2
 
 REQUIRED = [
     'etnawrapper',
@@ -39,7 +39,7 @@ setup(
     url=URL,
     packages=find_packages(exclude=('tests',)),
     # If your package is a single module, use this instead of 'packages':
-    # py_modules=['mypackage'],
+    py_modules=['etnotify'],
 
     entry_points={
         'console_scripts': ['mycli=etnotify:main'],

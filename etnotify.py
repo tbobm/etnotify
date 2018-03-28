@@ -49,6 +49,7 @@ def send_notification(notifier, title, message):
 def get_notification():
     if PLATFORM == "LINUX":
         notify2.init('etnotif')
+        notifier = notify2.Notification('ETNA', message='initialized etnotify')
     else:
         notifier = ToastNotifier()
     send_notification(notifier, "ETNA", 'initialized etnotify')

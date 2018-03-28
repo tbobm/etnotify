@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Etnotif script"""
 import os
 import time

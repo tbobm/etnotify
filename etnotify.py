@@ -9,11 +9,11 @@ from etnawrapper import BadStatusException
 try:
     import notify2
 
-    platform = "LINUX"
+    PLATFORM = "LINUX"
 except ImportError:
     from win10toast import ToastNotifier
 
-    platform = "WINDOWS"
+    PLATFORM = "WINDOWS"
 
 
 def get_logger():
@@ -31,21 +31,23 @@ def get_logger():
 
 
 def send_notification(notifier, title, message):
-    if platform == "LINUX":
+    if PLATFORM == "LINUX":
         notifier.update(
             title,
             message
         )
         notifier.show()
     else:
-        notifier.show_toast(title,
-                            message,
-                            icon_path="etna.ico",
-                            duration=10)
+        notifier.show_toast(
+            title,
+            message,
+            icon_path="etna.ico",
+            duration=10
+        )
 
 
 def get_notification():
-    if platform == "LINUX":
+    if PLATFORM == "LINUX":
         notify2.init('etnotif')
     else:
         notifier = ToastNotifier()

@@ -7,6 +7,8 @@ import logging
 from etnawrapper import EtnaWrapper
 from etnawrapper import BadStatusException
 
+import requests
+
 try:
     import notify2
 
@@ -77,6 +79,9 @@ def get_latest_notification(etna):
     except BadStatusException as err:
         logger.exception('Something bad happened.')
         return str(err)
+    except requests.exceptions.SSLError:
+        logger.info('SSL error')
+        return 'SSL Error'
     except Exception as err:
         logger.exception('err, something unplanned happened. bad bad bad.')
         return str(err)

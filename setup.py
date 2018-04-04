@@ -42,7 +42,7 @@ setup(
     py_modules=['etnotify'],
 
     entry_points={
-        'console_scripts': ['mycli=etnotify:main'],
+        'console_scripts': ['etnotify=etnotify.etnotify:main'],
     },
     install_requires=REQUIRED,
     include_package_data=True,

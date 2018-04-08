@@ -4,7 +4,7 @@
 import io
 import os
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 # Package meta-data.
 NAME = 'etnotify'
@@ -12,7 +12,7 @@ DESCRIPTION = 'Notifier script for ETNA.'
 URL = 'https://github.com/tbobm/etnotify'
 EMAIL = 'massar_t@etna-alternance.net'
 AUTHOR = 'Theo "Bob" Massard'
-VERSION = 1.2
+VERSION = 1.3
 
 REQUIRED = [
     'etnawrapper',
@@ -37,7 +37,7 @@ setup(
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,
-    packages=find_packages(exclude=('tests',)),
+    packages=['etnotify'],
     # If your package is a single module, use this instead of 'packages':
 
     entry_points={

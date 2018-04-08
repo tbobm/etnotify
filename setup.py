@@ -12,7 +12,7 @@ DESCRIPTION = 'Notifier script for ETNA.'
 URL = 'https://github.com/tbobm/etnotify'
 EMAIL = 'massar_t@etna-alternance.net'
 AUTHOR = 'Theo "Bob" Massard'
-VERSION = 1.3
+VERSION = '1.3.1'
 
 REQUIRED = [
     'etnawrapper',

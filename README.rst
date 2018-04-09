@@ -1,4 +1,7 @@
 
+.. image:: https://img.shields.io/pypi/v/nine.svg?style=for-the-badge   :alt: PyPI
+    :target: https://pypi.org/project/etnotify/
+
 Etnotify
 ========
 

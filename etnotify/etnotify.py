@@ -3,6 +3,7 @@
 import os
 import time
 import logging
+import urllib3
 
 from etnawrapper import EtnaWrapper
 from etnawrapper import BadStatusException
@@ -79,6 +80,12 @@ def get_latest_notification(etna):
     except BadStatusException as err:
         logger.info('Something bad happened: %s', str(err))
         return 'Probably proxy error'
+    except (
+            urllib3.exceptions.NewConnectionError,
+            requests.exceptions.ConnectionError
+            ):
+        logger.info('Connection error')
+        return 'Connection Error'
     except requests.exceptions.SSLError:
         logger.info('SSL error')
         return 'SSL Error'

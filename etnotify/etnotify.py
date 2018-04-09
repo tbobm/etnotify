@@ -77,8 +77,8 @@ def get_latest_notification(etna):
     try:
         notifications = etna.get_notifications()
     except BadStatusException as err:
-        logger.exception('Something bad happened.')
-        return str(err)
+        logger.info('Something bad happened: %s', str(err))
+        return 'Probably proxy error'
     except requests.exceptions.SSLError:
         logger.info('SSL error')
         return 'SSL Error'
@@ -94,7 +94,11 @@ def monitor_notifications(client, notifier):
     for notification in new_notifications(notif, client):
         logger.info(notification)
         try:
-            send_notification(notifier, 'ETNA - New notification', notification['message'])
+            send_notification(
+                notifier,
+                'ETNA - New notification',
+                notification['message']
+            )
         except Exception as err:
             send_notification(notifier, 'ETNOTIFY - Error', str(err))
 

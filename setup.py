@@ -4,7 +4,7 @@
 import io
 import os
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 # Package meta-data.
 NAME = 'etnotify'
@@ -12,7 +12,7 @@ DESCRIPTION = 'Notifier script for ETNA.'
 URL = 'https://github.com/tbobm/etnotify'
 EMAIL = 'massar_t@etna-alternance.net'
 AUTHOR = 'Theo "Bob" Massard'
-VERSION = 1.2
+VERSION = '1.3.1'
 
 REQUIRED = [
     'etnawrapper',
@@ -21,7 +21,7 @@ REQUIRED = [
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = '\n' + f.read()
 
 # Load the package's __version__.py module as a dictionary.
@@ -37,9 +37,8 @@ setup(
     author=AUTHOR,
     author_email=EMAIL,
     url=URL,
-    packages=find_packages(exclude=('tests',)),
+    packages=['etnotify'],
     # If your package is a single module, use this instead of 'packages':
-    py_modules=['etnotify'],
 
     entry_points={
         'console_scripts': ['etnotify=etnotify.etnotify:main'],

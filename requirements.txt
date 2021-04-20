@@ -9,7 +9,7 @@ idna==2.6
 notify2==0.3.1
 pathtools==0.1.2
 pluggy==0.6.0
-py==1.5.2
+py==1.10.0
 PyYAML==5.4
 requests==2.20.1
 six==1.11.0
